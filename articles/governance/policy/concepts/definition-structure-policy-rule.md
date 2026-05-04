@@ -664,10 +664,18 @@ The following functions are only available in policy rules:
       }
     ```
 
+  - `iss`: returns the issuer that generated and signed the token
+
   - `http: //schemas.microsoft.com/identity/claims/objectidentifier`: returns the user (or object) ID associated with the request.
     ```json
        "value": "[tryGet(requestContext().identity, 'http: //schemas.microsoft.com/identity/claims/objectidentifier')]",
        "in": ['userId']
+    ```
+
+  - `http://schemas.microsoft.com/claims/authnmethodsreferences`: returns the authentication methods associated with the request.
+    ```json
+       "value": "mfa",
+       "notIn": "[split(tryGet(requestContext().identity, 'http://schemas.microsoft.com/claims/authnmethodsreferences'), ',')]"
     ```
     
 > [!WARNING]
